@@ -1,3 +1,4 @@
 .vscode/
-app.dSYM/
+*.dSYM/
 dependencies/
+.DS_Store
