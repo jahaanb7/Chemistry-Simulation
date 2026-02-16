@@ -1,4 +1,4 @@
 .vscode/
 *.dSYM/
 .DS_Store
-*.app
+app
