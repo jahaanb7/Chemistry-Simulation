@@ -15,23 +15,29 @@ struct Particle{
     glm::vec2 position; // 2D position vector (x,y)
     glm::vec2 velocity; // magnitude and direction
 
+    glm::vec2 center = glm::vec2(WIDTH/2, 0);
+
+    float distance = sqrt(pow((center.x - position.x),2.0) + pow((center.y - position.y),2.0));
+
+    //gravity constant (not acceleration)
+    float gravityConstant = 0.000000667 * (100/pow(distance, 2.0));
+    glm::vec2 gravityAcceleration = glm::vec2(0.0f, -gravityConstant);
+
     // additional vars
     float mass;
     float radius;
     float charge;
 
-    double gravityConstant = 0.00000667 * (mass / radius*radius);
-    glm::vec2 gravityAcceleration = glm::vec2(0.0f, -gravityConstant);
-
     Particle(glm::vec2 pos, glm::vec2 vel, float m, float r)
       : position(pos), velocity(vel), mass(m), radius(r){}
 
     void updatePosition(float deltaTime) {
-        velocity -= gravityAcceleration * deltaTime;
+        velocity += gravityAcceleration * deltaTime;
+        velocity *= 0.995f; // damping
         position += velocity * deltaTime;
     }
 
-    void drawParticle(const Particle& p) {
+    void drawParticle() {
         glBegin(GL_TRIANGLE_FAN);
 
         int numSegments = 50;
@@ -40,10 +46,10 @@ struct Particle{
 
             float theta = 2.0f * glm::pi<float>() * float(i) / float(numSegments);
 
-            float x = p.radius * cos(theta);
-            float y = p.radius * sin(theta);
+            float x = radius * cos(theta);
+            float y = radius * sin(theta);
 
-            glVertex2f(x + p.position.x, y + p.position.y);
+            glVertex2f(x + position.x, y + position.y);
         }
         glEnd();
     }
@@ -73,23 +79,29 @@ Particle mouseMovement(GLFWwindow* window, Particle& particle){
 
 void boundingBoundary(Particle& particle){
 
+    float damping = 0.97f; 
+
     if(particle.position.x + particle.radius > WIDTH){
         particle.position.x = WIDTH - particle.radius;
+        particle.velocity.x *= 1 - damping;
         particle.velocity.x *= -1.0f;
     }
 
     if(particle.position.x - particle.radius < 0){
         particle.position.x = particle.radius;
+        particle.velocity.x *= 1 - damping;
         particle.velocity.x *= -1.0f;
     }
 
     if(particle.position.y + particle.radius > HEIGHT){
         particle.position.y = HEIGHT - particle.radius;
+        particle.velocity.y *= 1 - damping;
         particle.velocity.y *= -1.0f;
     }
 
     if(particle.position.y - particle.radius < 0){
         particle.position.y = particle.radius;
+        particle.velocity.y *= 1 - damping;
         particle.velocity.y *= -1.0f;
     }
 }
@@ -124,8 +136,8 @@ int main(void)
     //initialize Particle
     glm::vec2 position(400.0f, 300.0f);
 
-    const float magnitude = 25.0f;
-    const float angleDegree = 180.0f;
+    const float magnitude = 100.0f;
+    const float angleDegree = 65.0f;
     const float angleRadians = glm::radians(angleDegree);
 
     float directionX = magnitude*(cos(angleRadians));
@@ -152,7 +164,7 @@ int main(void)
 
         particle.updatePosition(deltaTime);
 
-        particle.drawParticle(particle);
+        particle.drawParticle();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
