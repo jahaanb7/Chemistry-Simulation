@@ -84,7 +84,7 @@ int main(void)
     glLoadIdentity();
 
     //initialize Particle
-    glm::vec2 position(400.0f, 300.0f);
+    glm::vec2 position(20.0f, 20.0f);
 
     const float magnitude = 400.0f;
     const float angleDegree = 90.0f;
@@ -93,7 +93,7 @@ int main(void)
     float directionX = magnitude*(cos(angleRadians));
     float directionY = magnitude*(sin(angleRadians));
 
-    glm::vec2 velocity = glm::vec2(directionX, directionY);
+    glm::vec2 velocity = glm::vec2(0, HEIGHT);
 
     const float mass = 60.0f;
     const float radius = 20.0f;
@@ -112,7 +112,8 @@ int main(void)
 
         boundingBoundary(particle);
 
-        particle.updatePosition(deltaTime);
+        glm::vec2 gravityAcceleration = particle.setGravityAcceleration(4000.0, 100.0, glm::vec2(WIDTH/2.0, HEIGHT/2.0));
+        particle.updatePositionGravity(deltaTime, gravityAcceleration);
 
         particle.drawParticle();
 
