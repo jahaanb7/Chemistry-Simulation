@@ -1,2 +1,2 @@
-### Space Simulation
-Creating an entire interactive space simulation, it will include black hole simulation, light, and much more. Built in C using OpenGL. Hoping to learn more about graphics programming, and astronomy at the same time.
+### Simulations - Astronomy, Particle, Fluid, Atomic, Molecular
+Creating an entire interactive space for manu different simulations, it will include black hole simulation, galaxy simualtion, fluid and smoke, particle, atomic, and biomolecular as well. Built in C using OpenGL. Hoping to learn more about graphics programming, and a bit of everything else at the same time.
