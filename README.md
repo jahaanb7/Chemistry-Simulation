@@ -1,2 +1,2 @@
 ### Simulations - Astronomy, Particle, Fluid, Atomic, Molecular
-Creating an entire interactive space for manu different simulations, it will include black hole simulation, galaxy simualtion, fluid and smoke, particle, atomic, and biomolecular as well. Built in C using OpenGL. Hoping to learn more about graphics programming, and a bit of everything else at the same time.
+An entire interactive program for creating and visualizing many different simulation, it will include black hole simulation, galaxy simualtion, fluid and smoke, particle, atomic, and biomolecular as well. Built in C using OpenGL. Hoping to learn more about graphics programming, and a bit of everything else at the same time.
