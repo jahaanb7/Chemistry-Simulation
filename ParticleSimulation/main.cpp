@@ -14,7 +14,15 @@
 /*
 Particle Simulation:
 
+Each particle has intrinsic properties:
+    - mass, radius
+    - position, velocity
+    - gravitational acceleration
 
+Current Functionality:
+    - Particle Collision
+    - Gravity
+    - Collision Boundary
 */
 
 // Screen Dimension variables
